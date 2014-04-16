@@ -1,0 +1,4 @@
+C:\Other\ВУЗ\СУБД\KISproject\KISproject\KISproject\bin\KISproject.dll
+C:\Other\ВУЗ\СУБД\KISproject\KISproject\KISproject\bin\KISproject.pdb
+C:\Other\ВУЗ\СУБД\KISproject\KISproject\KISproject\obj\Release\KISproject.dll
+C:\Other\ВУЗ\СУБД\KISproject\KISproject\KISproject\obj\Release\KISproject.pdb

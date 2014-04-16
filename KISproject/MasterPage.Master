@@ -1,0 +1,60 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="KISproject.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>
+    </title>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    
+    <link href="Styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="formMasterPage" runat="server">
+    <div>
+        
+        <div id="topContent">
+            <asp:LinkButton ID="LinkButtonHelp" runat="server" Font-Size="Medium" PostBackUrl="~/Help/Help.aspx">Помощь</asp:LinkButton>
+            &nbsp;|
+            <asp:LinkButton ID="LinkButtonLogout" runat="server" Font-Size="Medium" OnClick="LinkButtonLogout_Click">Выход</asp:LinkButton>
+        </div>
+            
+        <div id="mainContent">
+            <asp:ContentPlaceHolder id="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        
+        <div id="leftContent">
+            <h3>Меню</h3>
+            <ul>
+                <asp:LoginView ID="LoginViewMenu" runat="server">
+                    <RoleGroups>
+                        <asp:RoleGroup Roles="Admin">
+                            <ContentTemplate>
+                                <asp:Menu ID="MenuAdmin" runat="server" Orientation="Horizontal">
+                                    
+                                    <Items>
+                                        <asp:MenuItem NavigateUrl="~/Administrator/AdminMain.aspx" Text="Администрирование" Value="Администрирование" >
+                                            <asp:MenuItem NavigateUrl="~/Administrator/CreateUser.aspx" Text="Создать пользователя" Value="Создать пользователя"></asp:MenuItem>
+                                            <asp:MenuItem Text="Управление пользователями" Value="Управление пользователями" Enabled="False"></asp:MenuItem>
+                                            <asp:MenuItem NavigateUrl="~/Administrator/CreateRole.aspx" Text="Создать роль" Value="Создать роль"></asp:MenuItem>
+                                            <asp:MenuItem Text="Управление ролями" Value="Управление ролями" Enabled="False"></asp:MenuItem>
+                                        </asp:MenuItem>
+                                    </Items>
+                                    
+                                </asp:Menu>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                    </RoleGroups>
+                    
+                </asp:LoginView>
+            </ul>
+        </div>
+
+    </div>
+    </form>
+</body>
+</html>
