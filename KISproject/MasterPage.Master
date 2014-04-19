@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="KISproject.MasterPage" %>
+<%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit, Version=4.1.7.1213, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e" %>
 
 <!DOCTYPE html>
 
@@ -15,7 +16,8 @@
 <body>
     <form id="formMasterPage" runat="server">
     <div>
-        
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"/>
+
         <div id="topContent">
             <asp:LinkButton ID="LinkButtonHelp" runat="server" Font-Size="Medium" PostBackUrl="~/Help/Help.aspx">Помощь</asp:LinkButton>
             &nbsp;|
@@ -45,6 +47,19 @@
                                         </asp:MenuItem>
                                     </Items>
                                     
+                                </asp:Menu>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                        <asp:RoleGroup Roles="Kinoprocat">
+                            <ContentTemplate>
+                                <asp:Menu ID="MenuKinoprocat" runat="server" Orientation="Horizontal">
+                                
+                                    <Items>
+                                        <asp:MenuItem Selectable="False" Text="Управления кинопрокатом" Value="Управления кинопрокатом">
+                                                <asp:MenuItem NavigateUrl="~/Kinoprocat/DistributorPage.aspx" Text="Дистрибьюторы" Value="Дистрибьюторы"></asp:MenuItem>
+                                                <asp:MenuItem NavigateUrl="~/Kinoprocat/MoviesPage.aspx" Text="Фильмы" Value="Фильмы"></asp:MenuItem>
+                                            </asp:MenuItem>
+                                    </Items>
                                 </asp:Menu>
                             </ContentTemplate>
                         </asp:RoleGroup>

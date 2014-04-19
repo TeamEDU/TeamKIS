@@ -19,5 +19,23 @@ namespace KISproject.Administrator
                 Response.Redirect("Login.aspx");
             }
         }
+
+        //protected void BuildRoleList(object sender, EventArgs e)
+        //{
+        //    ListAllRoles.DataSource = Roles.GetAllRoles();
+        //    ListAllRoles.DataBind();
+        //}
+
+        //protected void AssignUserToRoles(object sender, EventArgs e)
+        //{
+        //    foreach (ListItem item in ListAllRoles.Items)
+        //    {
+        //        if (item.Selected)
+        //        {
+        //            Roles.AddUserToRole(CreateUserWizard1.UserName, item.Text);
+        //        }
+        //    }
+        //}
+
     }
 }

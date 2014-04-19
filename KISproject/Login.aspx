@@ -9,7 +9,9 @@
 <body>
     <form id="formLogin" runat="server">
     <div>
-        <asp:Login ID="Login1" runat="server" OnLoggedIn="Login1_LoggedIn"></asp:Login>
+        <asp:Login ID="Login1" runat="server" OnLoggedIn="Login1_LoggedIn">
+            <ValidatorTextStyle BorderColor="Red" />
+        </asp:Login>
     </div>
     </form>
 </body>

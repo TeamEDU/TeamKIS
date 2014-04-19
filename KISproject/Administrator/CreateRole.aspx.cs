@@ -12,15 +12,6 @@ namespace KISproject.Administrator
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Скипт для работы валидатора на стороне клиента.
-            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
-            {
-                Path = "~/scripts/jquery-1.7.2.min.js",
-                DebugPath = "~/scripts/jquery-1.7.2.min.js",
-                CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.min.js",
-                CdnDebugPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.js"
-            });
-
             if (!User.IsInRole("Admin"))
             {
                 // Запретить доступ к этой странице.

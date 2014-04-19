@@ -4,11 +4,11 @@ using System.Data;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
-namespace KISproject.Code.Controllers
+namespace Controllers
 {
-    // базовый контроллер, родитель для контроллеров отделов
+    // Базовый контроллер, родитель для контроллеров отделов
     // реализует механику работы с БД
-    abstract class BaseController
+    public abstract class BaseController
     {
         public string SAME = "";
 
@@ -16,7 +16,7 @@ namespace KISproject.Code.Controllers
         {
             MySqlConnectionStringBuilder con_string = new MySqlConnectionStringBuilder();
             con_string.Server = "localhost";
-            con_string.Port = 3307;
+            con_string.Port = 3306;
             con_string.Database = "kis_cinema_chain";
             con_string.UserID = "owner";
             con_string.Password = "54321";
@@ -92,7 +92,7 @@ namespace KISproject.Code.Controllers
             return datatable;
         }
 
-        protected string insert(object obj, string tableName)
+        protected int insert(object obj, string tableName)
         {
             List<string> propVals = getPropStrings(obj);
 
@@ -106,14 +106,15 @@ namespace KISproject.Code.Controllers
 
             MySqlConnection con = getConnection();
             MySqlCommand myCommand = new MySqlCommand(query, con);
+
             con.Open();
-            string id = myCommand.ExecuteScalar().ToString();
+            string str_id = myCommand.ExecuteScalar().ToString();
             con.Close();
 
-            return id;
+            return Convert.ToInt32(str_id);
         }
 
-        protected void delete(string id, string tableName)
+        protected void delete(int id, string tableName)
         {
             string query = "DELETE FROM " + tableName + " WHERE id=" + id;
 
@@ -121,10 +122,11 @@ namespace KISproject.Code.Controllers
             MySqlCommand myCommand = new MySqlCommand(query, con);
             con.Open();
             myCommand.ExecuteNonQuery();
+
             con.Close();
         }
 
-        protected void update(string id, object obj, string tableName)
+        protected void update(int id, object obj, string tableName)
         {
             List<string> propVals = getPropStrings(obj);
             dic = getDatabaseDictionary();
@@ -146,8 +148,8 @@ namespace KISproject.Code.Controllers
             MySqlCommand myCommand = new MySqlCommand(query, con);
             con.Open();
             myCommand.ExecuteNonQuery();
+
             con.Close();
         }
-
     }
 }

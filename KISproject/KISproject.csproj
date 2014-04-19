@@ -38,6 +38,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=4.1.7.1213, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Users\Al\Desktop\AJAXToolKit\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxMin">
+      <HintPath>..\..\..\..\..\VS2012Ultimate\AjaxControlToolkit.Binary.NET40\AjaxMin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Web, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
@@ -63,6 +70,8 @@
     <Content Include="Administrator\CreateRole.aspx" />
     <Content Include="Administrator\CreateUser.aspx" />
     <Content Include="Help\Help.aspx" />
+    <Content Include="Kinoprocat\DistributorPage.aspx" />
+    <Content Include="Kinoprocat\MoviesPage.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Styles.css" />
     <Content Include="Web.config">
@@ -84,7 +93,7 @@
     <Compile Include="Administrator\CreateRole.aspx.designer.cs">
       <DependentUpon>CreateRole.aspx</DependentUpon>
     </Compile>
-    <Content Include="Code\Controllers\BaseController.cs" />
+    <Compile Include="Code\Controllers\BaseController.cs" />
     <Compile Include="Administrator\CreateUser.aspx.cs">
       <DependentUpon>CreateUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -92,12 +101,31 @@
     <Compile Include="Administrator\CreateUser.aspx.designer.cs">
       <DependentUpon>CreateUser.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Code\Controllers\DistributorController.cs" />
+    <Compile Include="Code\Kinoprocat\Contact.cs" />
+    <Compile Include="Code\Kinoprocat\Distributor.cs" />
+    <Compile Include="Code\ExtMeths\ExtMeths.cs" />
+    <Compile Include="Code\Kinoprocat\ExtDistributor.cs" />
     <Compile Include="Help\Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help\Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Kinoprocat\DistributorPage.aspx.cs">
+      <DependentUpon>DistributorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Kinoprocat\DistributorPage.aspx.designer.cs">
+      <DependentUpon>DistributorPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Kinoprocat\MoviesPage.aspx.cs">
+      <DependentUpon>MoviesPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Kinoprocat\MoviesPage.aspx.designer.cs">
+      <DependentUpon>MoviesPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -119,6 +147,7 @@
     <Content Include="Administrator\Web.config" />
     <Content Include="MasterPage.Master" />
     <Content Include="Help\Web.config" />
+    <Content Include="Kinoprocat\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
