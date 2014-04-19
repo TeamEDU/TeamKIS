@@ -11,7 +11,7 @@ namespace Controllers
     {
         // Возвращает id добавленного элемента.
         // В противном случае -1.
-        public int insert(ExtDistributor extDistributor)
+        public int addDistributor(ExtDistributor extDistributor)
         {
             int distributor_id;
             try
@@ -28,7 +28,7 @@ namespace Controllers
             return distributor_id;
         }
 
-        public bool delete(ExtDistributor extDistributor)
+        public bool removeDistributor(ExtDistributor extDistributor)
         {
             bool result;
             try
@@ -46,7 +46,7 @@ namespace Controllers
             return result;
         }
 
-        public bool update(ExtDistributor extDistributor)
+        public bool updateDistributor(ExtDistributor extDistributor)
         {
             bool result;
             try

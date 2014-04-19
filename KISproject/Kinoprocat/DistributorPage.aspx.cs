@@ -38,10 +38,10 @@ namespace KISproject.Kinoprocat
 
             // Это работает за счет метода расширения, который определенн
             // в статическом классе ExtMeths
-            ExtDistributor selecteDistributor = GridViewDistributors.SelectedRow.ConvertTo();
+            ExtDistributor selectedDistributor = GridViewDistributors.SelectedRow.ConvertTo();
 
             // Сохранить выделенный объект в сессию (Request)
-            Session["SelectedDistributor"] = GridViewDistributors.SelectedRow.ConvertTo();
+            Session["SelectedDistributor"] = selectedDistributor;
         }
 
         // Обработчик события кнопки "Подтвердить".
@@ -59,7 +59,7 @@ namespace KISproject.Kinoprocat
                     new Contact(txtBoxPhone.Text, txtBoxEmail.Text,
                     txtBoxAddress.Text));
 
-                int result = dController.insert(extDistributor);
+                int result = dController.addDistributor(extDistributor);
 
                 // Произошел сбой?
                 if (result == -1)
@@ -69,16 +69,16 @@ namespace KISproject.Kinoprocat
             }
             else // следовательно нажата кнопка "Изменить".
             {
-                ExtDistributor selecteDistributor = (ExtDistributor)Session["SelectedDistributor"];
+                ExtDistributor selectedDistributor = (ExtDistributor)Session["SelectedDistributor"];
 
                 // Извлекаем новые данные из форм.
-                selecteDistributor.Distributor.Name = txtBoxName.Text;
-                selecteDistributor.Contact.Phone = txtBoxPhone.Text;
-                selecteDistributor.Contact.Email = txtBoxEmail.Text;
-                selecteDistributor.Contact.Address = txtBoxAddress.Text;
+                selectedDistributor.Distributor.Name = txtBoxName.Text;
+                selectedDistributor.Contact.Phone = txtBoxPhone.Text;
+                selectedDistributor.Contact.Email = txtBoxEmail.Text;
+                selectedDistributor.Contact.Address = txtBoxAddress.Text;
             
                 // Изменяем текущего дистрибьютора
-                bool result = dController.update(selecteDistributor);
+                bool result = dController.updateDistributor(selectedDistributor);
 
                 if (!result)
                 {
@@ -117,7 +117,7 @@ namespace KISproject.Kinoprocat
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             // Извлекаем выделенный объект из сессии
-            ExtDistributor selecteDistributor = (ExtDistributor)Session["SelectedDistributor"];
+            ExtDistributor selectedDistributor = (ExtDistributor)Session["SelectedDistributor"];
             Session["isAddingItem"] = false;
 
             // Остановить AJAX обновления.
@@ -125,7 +125,7 @@ namespace KISproject.Kinoprocat
 
             // Записать значения из выбранной строки (т.е объекта)
             // на формы.
-            WriteDataToTextBox(selecteDistributor);
+            WriteDataToTextBox(selectedDistributor);
 
             // Отобразить pop-up окно.
             ModalPopupWindow.Show();
@@ -137,9 +137,9 @@ namespace KISproject.Kinoprocat
             EnabledButtons(false);
 
             // Из выделенной строки получаем значения
-            ExtDistributor selecteDistributor = (ExtDistributor)Session["SelectedDistributor"];
+            ExtDistributor selectedDistributor = (ExtDistributor)Session["SelectedDistributor"];
             
-            bool result = dController.delete(selecteDistributor);
+            bool result = dController.removeDistributor(selectedDistributor);
             if (!result)
             {
                 ShowPopUpMsg("Ошибка соединения или обращения к БД!");

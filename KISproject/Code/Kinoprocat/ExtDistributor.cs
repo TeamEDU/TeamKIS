@@ -5,7 +5,7 @@ using System.Web;
 
 namespace KISproject.Code.Kinoprocat
 {
-    // Extentron Distributor - класс расширяющий классы 
+    // Extention Distributor - класс расширяющий классы 
     // по умолчанию: Distributor и Contact.
     public class ExtDistributor
     {
