@@ -19,9 +19,14 @@
         <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"/>
 
         <div id="topContent">
-            <asp:LinkButton ID="LinkButtonHelp" runat="server" Font-Size="Medium" PostBackUrl="~/Help/Help.aspx">Помощь</asp:LinkButton>
+            <asp:LinkButton ID="LinkButtonHelp" runat="server"
+                CausesValidation="False" Font-Size="Medium"
+                PostBackUrl="~/Help/Help.aspx">Помощь</asp:LinkButton>
             &nbsp;|
-            <asp:LinkButton ID="LinkButtonLogout" runat="server" Font-Size="Medium" OnClick="LinkButtonLogout_Click">Выход</asp:LinkButton>
+            <asp:LinkButton ID="LinkButtonLogout" CausesValidation="False"
+                runat="server" Font-Size="Medium" OnClick="LinkButtonLogout_Click">
+                Выход
+            </asp:LinkButton>
         </div>
             
         <div id="mainContent">
