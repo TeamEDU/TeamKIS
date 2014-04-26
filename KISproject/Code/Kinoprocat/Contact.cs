@@ -5,6 +5,12 @@ using System.Web;
 
 namespace KISproject.Code.Kinoprocat
 {
+    /* Атрибут сериализации. 
+     * Дает возможность преобразовать элемент в поток байт, т.е
+     * он может быть сохранен в состоянии представления.
+     * Необходим для состояния представления ViewState
+     */
+    [Serializable]
     public class Contact
     {
         public string Phone { get; set; }

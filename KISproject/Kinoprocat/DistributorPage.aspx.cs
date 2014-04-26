@@ -6,14 +6,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AjaxControlToolkit;
-using Controllers;
 using KISproject.Code.Kinoprocat;
+using Controllers;
 
 namespace KISproject.Kinoprocat
 {
     public partial class DistributorPage : System.Web.UI.Page
     {
-        DistributorController dController;
+        private DistributorController dController;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,7 +23,7 @@ namespace KISproject.Kinoprocat
             {
                 // Запретить доступ к этой странице.
                 // В замен переадресовать на страницу входа.
-                Response.Redirect("~/Administrator/Login.aspx");
+                Response.Redirect("~/Login.aspx");
             }
 
             dController = new DistributorController();
@@ -38,17 +38,17 @@ namespace KISproject.Kinoprocat
 
             // Это работает за счет метода расширения, который определенн
             // в статическом классе ExtMeths
-            ExtDistributor selectedDistributor = GridViewDistributors.SelectedRow.ConvertTo();
+            ExtDistributor selectedDistributor = GridViewDistributors.SelectedRow.ConvertToExtDistributor();
 
-            // Сохранить выделенный объект в сессию (Request)
-            Session["SelectedDistributor"] = selectedDistributor;
+            // Сохранить выделенный объект в состоянии представления (Request)
+            ViewState["SelectedDistributor"] = selectedDistributor;
         }
 
         // Обработчик события кнопки "Подтвердить".
         protected void btnOk_Click(object sender, EventArgs e)
         {
-            // Получить значение isAddingItem из сессии.
-            bool isAddingItem = (bool)Session["isAddingItem"];
+            // Получить значение isAddingItem из состоянии представления.
+            bool isAddingItem = (bool)ViewState["isAddingItem"];
 
             // Нажата кнопка "Добавить"?
             if (isAddingItem)
@@ -69,7 +69,7 @@ namespace KISproject.Kinoprocat
             }
             else // следовательно нажата кнопка "Изменить".
             {
-                ExtDistributor selectedDistributor = (ExtDistributor)Session["SelectedDistributor"];
+                ExtDistributor selectedDistributor = (ExtDistributor)ViewState["SelectedDistributor"];
 
                 // Извлекаем новые данные из форм.
                 selectedDistributor.Distributor.Name = txtBoxName.Text;
@@ -100,14 +100,14 @@ namespace KISproject.Kinoprocat
         // Обработчик события кнопки "Добавить"
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            // Получить значение isAddingItem из сессии.
-            Session["isAddingItem"] = true;
+            // Получить значение isAddingItem из состоянии представления.
+            ViewState["isAddingItem"] = true;
 
             // Остановить AJAX обновления.
             ProductTimer.Enabled = false;
 
             // Очистить контролы TextBox от ранее введенной информации.
-            WriteDataToTextBox("");
+            WriteDataToControls();
 
             // Отобразить popup окно.
             ModalPopupWindow.Show();
@@ -116,35 +116,36 @@ namespace KISproject.Kinoprocat
         // Обработчик события кнопки "Изменить".
         protected void btnEdit_Click(object sender, EventArgs e)
         {
-            // Извлекаем выделенный объект из сессии
-            ExtDistributor selectedDistributor = (ExtDistributor)Session["SelectedDistributor"];
-            Session["isAddingItem"] = false;
+            // Извлекаем выделенный объект из состоянии представления
+            ExtDistributor selectedDistributor = (ExtDistributor)ViewState["SelectedDistributor"];
+            ViewState["isAddingItem"] = false;
 
             // Остановить AJAX обновления.
             ProductTimer.Enabled = false;
 
             // Записать значения из выбранной строки (т.е объекта)
             // на формы.
-            WriteDataToTextBox(selectedDistributor);
+            WriteDataToControls(selectedDistributor);
 
             // Отобразить pop-up окно.
             ModalPopupWindow.Show();
         }
 
+        // Обработчик события кнопки "Удалить".
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            // Заблокировать доступ к кнопкам.
+            // Заблокировать доступ к кнопкам "Удалить" и "Изменить".
             EnabledButtons(false);
 
             // Из выделенной строки получаем значения
-            ExtDistributor selectedDistributor = (ExtDistributor)Session["SelectedDistributor"];
+            ExtDistributor selectedDistributor = (ExtDistributor)ViewState["SelectedDistributor"];
             
-            bool result = dController.removeDistributor(selectedDistributor);
-            if (!result)
+            string message = dController.removeDistributor(selectedDistributor);
+            if (message != "success")
             {
-                ShowPopUpMsg("Ошибка соединения или обращения к БД!");
+                ShowPopUpMsg(message);
+                EnabledButtons(true);
             }
-
         }
 
         protected void ProductTimer_Tick(object sender, EventArgs e)
@@ -169,21 +170,23 @@ namespace KISproject.Kinoprocat
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "showalert", sb.ToString(), true);
         }
 
-        // Записывает данные из аргумента на формы TextBox панели PanelAddEditDistributor.
-        private void WriteDataToTextBox(ExtDistributor selectedDistributor)
+        // Пишет данные полученные с параметра в контролы 
+        // (на формы TextBox панели PanelAddEditDistributor).
+        private void WriteDataToControls(ExtDistributor selectedDistributor)
         {
             txtBoxName.Text = selectedDistributor.Distributor.Name;
             txtBoxPhone.Text = selectedDistributor.Contact.Phone;
             txtBoxEmail.Text = selectedDistributor.Contact.Email;
             txtBoxAddress.Text = selectedDistributor.Contact.Address;
         }
-
-        private void WriteDataToTextBox(string str)
+        
+        // Очищает данные с контролов.
+        private void WriteDataToControls()
         {
-            txtBoxName.Text = str;
-            txtBoxPhone.Text = str;
-            txtBoxEmail.Text = str;
-            txtBoxAddress.Text = str;
+            txtBoxName.Text = "";
+            txtBoxPhone.Text = "";
+            txtBoxEmail.Text = "";
+            txtBoxAddress.Text = "";
         }
     }
 }

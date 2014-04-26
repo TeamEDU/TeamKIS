@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
 using KISproject.Code.Kinoprocat;
 
 namespace Controllers
@@ -28,22 +25,34 @@ namespace Controllers
             return distributor_id;
         }
 
-        public bool removeDistributor(ExtDistributor extDistributor)
+        public string removeDistributor(ExtDistributor extDistributor)
         {
-            bool result;
+            string message;
             try
             {
-                delete(extDistributor.Distributor_id, "Distributors");
-                delete(extDistributor.Distributor.Contacts_id,
-                    "Contacts");
-                result = true;
+                bool result = hasAnyMovieOfDistributor(extDistributor.Distributor_id);
+
+                // Если у дистрибьютора нет фильмов то
+                if (!result)
+                {
+                    delete(extDistributor.Distributor_id, "Distributors");
+                    delete(extDistributor.Distributor.Contacts_id,
+                        "Contacts");
+
+                    message = "success";
+                }
+                else
+                {
+                    message = "Нельзя удалить, т.к на данного дистрибьютора " +
+                        "ссылаются фильмы";
+                }
             }
             catch (Exception)
             {
-                result = false;
+                message = "Ошибка доступа к БД";
             }
 
-            return result;
+            return message;
         }
 
         public bool updateDistributor(ExtDistributor extDistributor)
@@ -65,6 +74,19 @@ namespace Controllers
             }
 
             return result;
+        }
+
+        public bool hasAnyMovieOfDistributor(int distributor_id)
+        {
+            DataTable movie = select("SELECT id FROM Movies WHERE Distributors_id = " + 
+                distributor_id + " LIMIT 1");
+
+            if (movie.Rows.Count > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

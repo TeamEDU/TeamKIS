@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Отдел управления кинопрокатом" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="DistributorPage.aspx.cs" Inherits="KISproject.Kinoprocat.DistributorPage" %>
+﻿<%@ Page Title="Дистрибьюторы" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="DistributorPage.aspx.cs" Inherits="KISproject.Kinoprocat.DistributorPage" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <%-- Контент для заголовка --%>
@@ -11,7 +11,8 @@
          обратной передачи (т.е перезагрузки страницы). --%>
     <asp:UpdatePanel ID="DistribPanel" runat="server">
         <ContentTemplate>
-            <%-- Кнопка заглушка для ModalPopupExtender.TargetControlID. --%>
+            <%-- Кнопка заглушка для ModalPopupExtender.TargetControlID.
+                Необходима, т.к иначе у btnAdd не сработает обраб. события --%>
             <asp:Button ID="btnDummy" runat="server" Style="display: none" />
 
             <%-- Контент для заголовка --%>
@@ -31,7 +32,7 @@
             
             <%-- Таблица --%>
             <asp:GridView ID="GridViewDistributors" runat="server"
-                DataSourceID="SqlDataSourceKIScinema" AutoGenerateColumns="False"
+                DataSourceID="SqlDataSourceKISDistributor" AutoGenerateColumns="False"
                 AutoGenerateSelectButton="True"
                 Caption="Таблица дистрибьюторов"
                 OnSelectedIndexChanged="GridViewDistribution_SelectedIndexChanged"
@@ -52,7 +53,7 @@
             </asp:GridView>
             
             <%-- Источник данных --%>
-            <asp:SqlDataSource ID="SqlDataSourceKIScinema" runat="server"
+            <asp:SqlDataSource ID="SqlDataSourceKISDistributor" runat="server"
                 ConnectionString="<%$ ConnectionStrings:kis_cinema_chainConnectionString %>"
                 ProviderName="<%$ ConnectionStrings:kis_cinema_chainConnectionString.ProviderName %>"
                 SelectCommand="SELECT distributors.*, contacts.Phone, contacts.Email, contacts.Address FROM contacts INNER JOIN distributors ON contacts.id = distributors.Contacts_id">
@@ -65,7 +66,8 @@
             <asp:Panel ID="PanelAddEditDistributor" runat="server"  Width="250px"
                 CssClass="modalPopup" Style="display: none">
                 Имя:
-                <asp:TextBox ID="txtBoxName" runat="server" style="margin-left: 48px"/>
+                <asp:TextBox ID="txtBoxName" runat="server" style="margin-left: 48px"
+                    MaxLength="256"/>
 
                 <asp:RequiredFieldValidator ID="RequiredFieldName" runat="server" 
                     ControlToValidate="txtBoxName" ErrorMessage="Заполните поле!" 
@@ -76,7 +78,8 @@
                 <br />
 
                 Телефон:
-                <asp:TextBox ID="txtBoxPhone" runat="server" style="margin-left: 8px"/>
+                <asp:TextBox ID="txtBoxPhone" runat="server" style="margin-left: 8px"
+                    MaxLength="256" />
         
                 <asp:RequiredFieldValidator ID="RequiredFieldPhone" runat="server" 
                     ControlToValidate="txtBoxPhone" ErrorMessage="Заполните поле!" ForeColor="Red" 
@@ -87,7 +90,8 @@
                 <br />
         
                 Почта:
-                <asp:TextBox ID="txtBoxEmail" runat="server" style="margin-left: 32px"/>
+                <asp:TextBox ID="txtBoxEmail" runat="server" style="margin-left: 32px"
+                    MaxLength="256"/>
         
                 <asp:RequiredFieldValidator ID="RequiredFieldEMail" runat="server" 
                     ErrorMessage="Заполните поле!" ControlToValidate="txtBoxEmail" ForeColor="Red"
@@ -109,7 +113,8 @@
                 <br />
 
                 Адрес:
-                <asp:TextBox ID="txtBoxAddress" runat="server" style="margin-left: 30px"/>
+                <asp:TextBox ID="txtBoxAddress" runat="server" style="margin-left: 30px"
+                    MaxLength="256"/>
 
                 <asp:RequiredFieldValidator ID="RequiredFieldAddress" runat="server"
                     ControlToValidate="txtBoxAddress" ErrorMessage="Заполните поле!" ForeColor="Red"

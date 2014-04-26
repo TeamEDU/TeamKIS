@@ -7,6 +7,13 @@ namespace KISproject.Code.Kinoprocat
 {
     // Extention Distributor - класс расширяющий классы 
     // по умолчанию: Distributor и Contact.
+
+    /* Атрибут сериализации. 
+     * Дает возможность преобразовать элемент в поток байт, т.е
+     * он может быть сохранен в состоянии представления.
+     * Необходим для состояния представления ViewState
+     */
+    [Serializable]
     public class ExtDistributor
     {
         // Идентификатор дистрибьютера

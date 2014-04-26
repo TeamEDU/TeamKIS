@@ -64,11 +64,18 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="TimePicker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d25e9f59e49c4d2f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\VS2012Ultimate\TimePicker Control\TimePicker.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Administrator\AdminMain.aspx" />
     <Content Include="Administrator\CreateRole.aspx" />
     <Content Include="Administrator\CreateUser.aspx" />
+    <Content Include="App_Data\Images\start-done.png" />
+    <Content Include="App_Data\Images\start-empty.png" />
+    <Content Include="App_Data\Images\start.png" />
     <Content Include="Help\Help.aspx" />
     <Content Include="Kinoprocat\DistributorPage.aspx" />
     <Content Include="Kinoprocat\MoviesPage.aspx" />
@@ -102,10 +109,13 @@
       <DependentUpon>CreateUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Code\Controllers\DistributorController.cs" />
+    <Compile Include="Code\Controllers\MovieController.cs" />
     <Compile Include="Code\Kinoprocat\Contact.cs" />
     <Compile Include="Code\Kinoprocat\Distributor.cs" />
     <Compile Include="Code\ExtMeths\ExtMeths.cs" />
     <Compile Include="Code\Kinoprocat\ExtDistributor.cs" />
+    <Compile Include="Code\Kinoprocat\Movie.cs" />
+    <Compile Include="Code\Kinoprocat\ExtMovie.cs" />
     <Compile Include="Help\Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

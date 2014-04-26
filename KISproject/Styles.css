@@ -10,6 +10,7 @@ h1, h2
     margin: 0px;
 }
 
+/* Стиль для страниц*/
 #topContent 
 {
     text-align: right;
@@ -61,11 +62,8 @@ h1, h2
     padding: 5px;
 }
 
-.watermark 
-{
-	background: #FFAAFF;
-}
 
+/* Стиль модального popup окна*/
 .popupControl 
 {
 	background-color:#AAD4FF;
@@ -90,12 +88,38 @@ h1, h2
 	padding:3px;
 }
 
+/* Стиль подсветки контрола (textBox) при неправильном 
+    вводе данных*/
 .validatorCalloutHighlight 
 {
-    background-color: lemonchiffon; 
+    background-color: #FAEAEA;
 }
 
-  .hideGrideColumn
-  {
+/* Стиль для id'ров в DataView. Позволяет скрыть
+    столбцы с id. */
+.hideGrideColumn
+{
     display: none;
-  }
+}
+
+/* Стиль для рейтинга */
+.emptyRatingStar 
+{
+    background-image: url('App_Data/Images/start-empty.png');
+    width: 24px;
+    height: 24px;
+}    
+
+.filledRatingStar 
+{
+    background-image: url('App_Data/Images/start.png');
+    width: 24px;
+    height: 24px;
+}
+
+.savedRatingStar 
+{
+    background-image: url('App_Data/Images/start-done.png');
+    width: 24px;
+    height: 24px;
+}
